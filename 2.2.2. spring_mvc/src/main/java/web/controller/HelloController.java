@@ -1,13 +1,16 @@
 package web.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.dao.PersonDAO;
 import web.models.Person;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +53,16 @@ public class HelloController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "views/people/new";
+        }
         personDAO.save(person);
         return "redirect:/people";
     }
 
-    @ModelAttribute("hello") // Данное ключ-значение будет добавлена ко всем моделям данного контролера
+    @ModelAttribute("hello") //  @ModelAttribute - Данное ключ-значение будет добавлена ко всем моделям данного контролера
     public String pep() {
         return "Hello !!!!!!!"; //значение по ключу
     }
@@ -67,7 +74,11 @@ public class HelloController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("person") @Valid Person person,BindingResult bindingResult,
+                         @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()){
+            return "views/people/edit"; // ???
+        }
         personDAO.update(id, person);
         return "redirect:/people";
     }
