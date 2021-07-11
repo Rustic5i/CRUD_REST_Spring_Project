@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.PersonDAO;
+import web.dao.DAO;
+import web.dao.ArrayListDAO;
+import web.dao.JDBC_DAO;
 import web.models.Person;
 
 import javax.validation.Valid;
@@ -17,11 +19,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/people")
 public class HelloController {
-    private final PersonDAO personDAO;
+    private final DAO personDAO;
 
     @Autowired
-    public HelloController(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public HelloController(JDBC_DAO DAO) {
+        this.personDAO = DAO;
     }
 
     @GetMapping(value = "/hello")

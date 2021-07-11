@@ -6,7 +6,7 @@ import web.models.Person;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class PersonDAO {
+public class ArrayListDAO implements DAO {
     private List<Person> peopleList;
     private Integer PEOPLE_COUNT;
 
