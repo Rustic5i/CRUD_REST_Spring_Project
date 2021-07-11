@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import web.dao.DAO;
 import web.dao.ArrayListDAO;
 import web.dao.JDBC_DAO;
+import web.dao.JdbcTemplateDAO;
 import web.models.Person;
 
 import javax.validation.Valid;
@@ -22,7 +23,7 @@ public class HelloController {
     private final DAO personDAO;
 
     @Autowired
-    public HelloController(JDBC_DAO DAO) {
+    public HelloController(JdbcTemplateDAO DAO) {
         this.personDAO = DAO;
     }
 
